@@ -25,7 +25,7 @@ SECRET_KEY = '&olfpkal&d*=rww$706jm7s)v)&6*#lg2(#c32-1)j5hx%&*5q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -55,7 +55,9 @@ ROOT_URLCONF = 'pure_butter.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'food/templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
