@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<header class="mastheadResult text-center text-white d-flex">
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h1>
+                    <strong>{{ product }}</strong>
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 text-center">
+                <img class="nutriPicture img-fluid" src="{% static 'food/img/A.png' %}" alt="lettre A" style="width:30%">
+                <img class="nutriPicture img-fluid" src="{% static 'food/img/B.png' %}" alt="lettre B">
+                <img class="nutriPicture img-fluid" src="{% static 'food/img/C.png' %}" alt="lettre C">
+                <img class="nutriPicture img-fluid" src="{% static 'food/img/D.png' %}" alt="lettre D">
+                <img class="nutriPicture img-fluid" src="{% static 'food/img/E.png' %}" alt="lettre E">
+            </div>
+            <div class="col-lg-6 text-center">
+                <h4 class="landmark">Repères nutritionnels pour 100g:</h4>
+                <!-- Boucle en UL pour la liste-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <button type="button" class="btn btn-primary">Voir la fiche d'Open Food Facts</button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

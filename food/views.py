@@ -7,10 +7,14 @@ def home(request):
     """ Main page """
     form = ProductSearch(request.POST)
     if form.is_valid():
-        product = form.cleaned_data['product']
-        return redirect('result', product)
+        search = form.cleaned_data['product']
+        return redirect('result', search)
     return render(request, 'index.html', locals())
 
-def result(request, product):
+def result(request, search):
     """ Results page """
-    return render(request, 'results.html', {'product': product})
+    return render(request, 'results.html', {'product': search})
+
+def product(request, product):
+    """ Page product """
+    return render(request, 'product.html', {'product': product})

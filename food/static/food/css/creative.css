@@ -152,6 +152,10 @@ img::-moz-selection {
   background-color: #fff;
 }
 
+.btn-primary:hover {
+  background-color: #345a61;
+}
+
 #searchText {
   border-radius: 10px 0px 0px 10px;
   width: 200px;
@@ -402,15 +406,21 @@ header.mastheadResult {
 .btn-primary {
   background-color: #F05F40;
   border-color: #F05F40;
-}
-
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  color: #fff;
-  background-color: #ee4b28 !important;
+  margin-top: 100px;
 }
 
 .btn-primary:active, .btn-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+}
+
+.nutriPicture {
+  margin-bottom: 5px;
+  size: 1.2em;
+}
+
+.landmark {
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 @media (min-width: 374px){
