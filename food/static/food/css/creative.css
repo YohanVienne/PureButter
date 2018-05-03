@@ -35,6 +35,28 @@ a {
   transition: all 0.2s;
 }
 
+.replaceArgument {
+  margin-bottom: 50px;
+}
+
+.subImg {
+max-height: 230px;
+max-width: 230px;
+border: 1px solid #28ee28;
+position: relative;
+}
+
+.nutImg {
+    position:absolute;
+    top:-35px;
+    left:230px;
+    border-radius: 45px 45px 45px 45px;
+}
+
+.saveProduct {
+  color: #ee4b28;
+}
+
 .phone {
   color: white;
   font-weight: 10000;
@@ -138,6 +160,10 @@ img::-moz-selection {
   margin-right: 0;
 }
 
+#searchBar {
+  margin-top: 10px;
+}
+
 #searchForm {
   display: flex;
   position: center;
@@ -149,6 +175,13 @@ footer {
   padding-bottom: 20px;
 }
 
+.picture {
+  height: 300px;
+  margin-left: 3% !important;
+  margin-right: 3% !important;
+  flex: 27% !important;
+  margin-bottom: 55px;
+}
 
 #carrot {
   width: 25px;
@@ -164,13 +197,7 @@ footer {
   mask-size: cover;
     }
 
-.remyPicture {
-  width: 300px;
-}
 
-.colettePicture {
-  height: 400px;
-}
 
 @media (min-width: 992px) {
   #mainNav {
@@ -352,6 +379,9 @@ header.mastheadResult {
   .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
     font-size: 22px;
   }
+  .nutImg {
+    left: 210px;
+  }
 }
 
 .text-primary {
@@ -383,12 +413,6 @@ header.mastheadResult {
   box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
 }
 
-.service-box {
-  display: inline-block;
-  border: 1px solid indigo;
-  vertical-align: bottom;
-}
-
 @media (min-width: 374px){
   #searchText {
     width: 310px;
@@ -396,5 +420,20 @@ header.mastheadResult {
   .btn-info {
     padding-left: 10px;
     padding-right: 10px;
+  }
+
+  h1, header h2 {
+        text-shadow: 1px 1px 1px #ee4b28;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nutImg {
+    left: 240px;
+  }
+}
+@media (min-width: 1400px) {
+  .nutImg {
+    left: 270px;
   }
 }

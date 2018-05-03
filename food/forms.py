@@ -7,7 +7,7 @@ class ProductSearch(forms.Form):
         attrs={
             'class': 'form-control',
             'id': 'searchText',
+            'value': '',
             'placeholder': 'Entrez un produit',
         }
     ))
-    

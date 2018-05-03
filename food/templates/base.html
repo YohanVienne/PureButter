@@ -35,7 +35,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
             <img class="logo" src="{% static 'food/img/logo_pur_beurre.png' %}" alt="Logo">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">Pur Beurre</a>
+            <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}">Pur Beurre</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -43,15 +43,17 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#page-top">
-                            <button type="button" class="btn-search">Chercher</button>
-                        </a>
+                        <form action="{% url "home" %}" method="post">
+                            {% csrf_token %}
+                            <input type="text" name="product" class="form-control" id="searchBar" placeholder="Entrez un produit" maxlength="30" required="">
+                        </form>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#contact" title="Mon compte">
                             <i class="material-icons">person</i>
                         </a>
                     </li>
+                    {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#services" title="Mes aliments" id="carrot"></a>
                     </li>
@@ -60,6 +62,7 @@
                             <i class="material-icons">exit_to_app</i>
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
