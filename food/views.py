@@ -18,3 +18,6 @@ def result(request, search):
 def product(request, product):
     """ Page product """
     return render(request, 'product.html', {'product': product})
+
+def account(request):
+    return render(request, 'account.html')

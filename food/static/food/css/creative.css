@@ -415,12 +415,18 @@ header.mastheadResult {
 
 .nutriPicture {
   margin-bottom: 5px;
-  size: 1.2em;
+  
 }
 
 .landmark {
   margin-top: 20px;
   margin-bottom: 40px;
+}
+
+.accountForm {
+  border: 2px solid #ee4b28;
+  max-width: 500px;
+  margin: auto;
 }
 
 @media (min-width: 374px){
