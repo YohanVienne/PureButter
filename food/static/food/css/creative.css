@@ -201,7 +201,15 @@ footer {
   mask-size: cover;
     }
 
+.subscribe {
+  color: #f05f40;
+}
 
+.connexionForm {
+  margin: auto;
+  width: 85%;
+  border-radius: 10px 0px 0px 10px;
+}
 
 @media (min-width: 992px) {
   #mainNav {
@@ -447,9 +455,19 @@ header.mastheadResult {
   .nutImg {
     left: 240px;
   }
+  .connexionForm {
+    margin: auto;
+    width: 400px !important;
+  }
 }
 @media (min-width: 1400px) {
   .nutImg {
     left: 270px;
+  }
+}
+@media (min-width: 425px) {
+  .connexionForm {
+    margin: auto;
+    width: 70%;
   }
 }

@@ -48,20 +48,26 @@
                             <input type="text" name="product" class="form-control" id="searchBar" placeholder="Entrez un produit" maxlength="30" required="">
                         </form>
                     </li>
+                    {% if not user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#contact" title="Mon compte">
+                        <a class="nav-link js-scroll-trigger" href="{%url 'connexion'%}" title="Se connecter">
                             <i class="material-icons">person</i>
                         </a>
                     </li>
-                    {% if not user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#services" title="Mes aliments" id="carrot"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#portfolio" title="Déconnexion">
-                            <i class="material-icons">exit_to_app</i>
-                        </a>
-                    </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{%url 'account'%}" title="Mon compte">
+                                <i class="material-icons">person</i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#services" title="Mes aliments" id="carrot"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{%url 'deconnexion'%}" title="Déconnexion">
+                                <i class="material-icons">exit_to_app</i>
+                            </a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>
