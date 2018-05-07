@@ -4,7 +4,6 @@
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <h1><strong>COMPTE</strong></h1>
-                <h2>{{account.firstname}} {{account.surname}}</h2>
             </div>
         </div>
     </div>
@@ -14,8 +13,13 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="accountForm">
-                    <h5>Email: </h5>
-                    <h5>{{account.email}}</h5>
+                    {% if firstname %}
+                    <h2>{{firstname}} {{lastname}}</h2>
+                    <br>
+                    <h5>PRENOM:  {{ firstname }}</h5>
+                    <h5>NOM:  {{ lastname }}</h5>
+                    {% endif %}
+                    <h5>EMAIL:  {{ email }}</h5>
                 </div>
             </div>
         </div>
