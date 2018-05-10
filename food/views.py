@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from food.utils import get_product, get_result
 
 # Create your views here.
 def home(request):
@@ -18,6 +19,10 @@ def home(request):
 
 def result(request, search):
     """ Results page """
+    search_result = get_product(search)
+    if search_result is not None:
+        categorie, nutrition_grade = search_result
+        get_result(categorie, nutrition_grade)
     return render(request, 'results.html', {'product': search})
 
 def product(request, product):

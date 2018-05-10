@@ -1,9 +1,9 @@
 from django.test import TestCase
-from food.models import Categorie, Product
+from food.models import Categorie
 from django.test import Client
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.firefox.webdriver import WebDriver
-
+from food.utils import get_product, get_result
 
 class CategorieTestCase(TestCase):
     """ Categorie database """
@@ -68,3 +68,27 @@ class MySeleniumTests(StaticLiveServerTestCase):
         WebDriverWait(self.selenium, timeout).until(
             lambda driver: driver.find_element_by_id('carrot'))
         self.selenium.find_element_by_xpath('//a[@title="Déconnexion"]').click()
+
+class OffTestCase(TestCase):
+    """ Test the OpenFoodFacts request """
+
+    def setUp(self):
+        Categorie.objects.create(
+            categorie_name='Petit-déjeuners', categorie_url='https://fr.openfoodfacts.org/categorie/petit-dejeuners')
+
+    def test_get_product(self):
+        """ Get_product test """
+        request = get_product('Nutella')
+        result = (['Petit-déjeuners', 'Produits à tartiner', 'Produits à tartiner sucrés',
+                    'Pâtes à tartiner', 'Pâtes à tartiner au chocolat',
+                    'Pâtes à tartiner aux noisettes', 'Pâtes à tartiner aux noisettes et au cacao'], 'e')
+        self.assertEqual(request, result )
+
+    def test_get_result(self):
+        """ Get_result test """
+        categorie = ['Petit-déjeuners', 'Produits à tartiner', 'Produits à tartiner sucrés',
+                     'Pâtes à tartiner', 'Pâtes à tartiner au chocolat',
+                     'Pâtes à tartiner aux noisettes', 'Pâtes à tartiner aux noisettes et au cacao']
+        nutrition_grade =  'e'
+        self.assertIs (get_result(categorie, nutrition_grade),
+                         type (str()))

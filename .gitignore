@@ -2,3 +2,4 @@
 env/
 Doc/
 db.sqlite3
+geckodriver.log
