@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import ProductSearch, loginConnexion, createUser
@@ -21,9 +22,13 @@ def result(request, search):
     """ Results page """
     search_result = get_product(search)
     if search_result is not None:
+        title = 'Votre recherche pour ' + search
         categorie, nutrition_grade = search_result
-        get_result(categorie, nutrition_grade)
-    return render(request, 'results.html', {'product': search})
+        data = get_result(categorie, nutrition_grade)
+        list_product = json.loads(data)
+        return render(request, 'results.html', {'title': title, 'product': list_product})
+    else:
+        return render(request, 'results.html', {'noAnswer': 'No answer'})
 
 def product(request, product):
     """ Page product """

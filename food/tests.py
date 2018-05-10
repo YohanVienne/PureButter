@@ -1,3 +1,4 @@
+import json
 from django.test import TestCase
 from food.models import Categorie
 from django.test import Client
@@ -84,11 +85,19 @@ class OffTestCase(TestCase):
                     'Pâtes à tartiner aux noisettes', 'Pâtes à tartiner aux noisettes et au cacao'], 'e')
         self.assertEqual(request, result )
 
+    def test_get_product_is_none(self):
+        """ Return None """
+        request = get_product('gezzfzzfz')
+        self.assertEqual(request, None)
+
     def test_get_result(self):
         """ Get_result test """
         categorie = ['Petit-déjeuners', 'Produits à tartiner', 'Produits à tartiner sucrés',
                      'Pâtes à tartiner', 'Pâtes à tartiner au chocolat',
                      'Pâtes à tartiner aux noisettes', 'Pâtes à tartiner aux noisettes et au cacao']
         nutrition_grade =  'e'
-        self.assertIs (get_result(categorie, nutrition_grade),
-                         type (str()))
+
+        result = get_result(categorie, nutrition_grade)
+        json_result = json.loads(result)
+        self.assertIs(type(result), str)
+
