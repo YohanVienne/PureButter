@@ -19,7 +19,7 @@ def get_product(search):
         except:
             categorie_list = data["products"][0]["categories_tags"]
             categorie = [item[3:] for item in categorie_list if item[:2] == "fr"]
-        
+        print("categorie: " + str(categorie))
         nutrition_grade = data["products"][0]["nutrition_grades_tags"]
         result = categorie, nutrition_grade
         return result
@@ -29,11 +29,17 @@ def get_product(search):
 
 def get_result(categorie, nutrition_grade):
     cat = categorie[(len(categorie)-1)]
-    # On va récupérer la liste des produits correspondant
-    categorie_match = Categorie.objects.get(categorie_name=cat)
+    try:
+        categorie_match = Categorie.objects.get(categorie_name=cat)
+    except:
+        cat_url = cat.replace(' ', '-')
+        categorie_match = Categorie.objects.get(categorie_name=cat_url)[:1]
+    print('cat_match: ' + str(categorie_match))
     data_url = requests.get(categorie_match.categorie_url + '.json')
     data = data_url.json()
-    json_lenght = data["page_size"]
+    json_lenght = data["count"]
+    if json_lenght > 20:
+        json_lenght = 20
     product = []
     item_count = 0
     for rank in range(0, json_lenght):
@@ -54,5 +60,4 @@ def get_result(categorie, nutrition_grade):
                 continue
         else:
             continue
-
     return json.dumps(product)

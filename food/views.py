@@ -22,10 +22,15 @@ def result(request, search):
     """ Results page """
     search_result = get_product(search)
     if search_result is not None:
-        title = 'Votre recherche pour ' + search
         categorie, nutrition_grade = search_result
         data = get_result(categorie, nutrition_grade)
         list_product = json.loads(data)
+        nutri_score = str(nutrition_grade[0].upper())
+        if nutri_score.lower() == 'unknown':
+            nutri_score = 'inconnu'
+            title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel inconnu'
+        else:
+            title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel ' + nutri_score
         return render(request, 'results.html', {'title': title, 'product': list_product})
     else:
         return render(request, 'results.html', {'noAnswer': 'No answer'})
