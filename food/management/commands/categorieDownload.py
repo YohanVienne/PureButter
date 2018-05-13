@@ -17,6 +17,7 @@ class Command(BaseCommand):
             data = categories_url.read()
             json_output = json.loads(data.decode("UTF-8"))
             self.stdout.write("Insertion in database...")
+            count = 0
             # Change the type to str format, control len size and take of the langage prefixe(Cleaning file)
             for categorie in json_output["tags"]:
                 cat_name = categorie['name']
@@ -32,8 +33,9 @@ class Command(BaseCommand):
 
                 cat = Categorie(categorie_name=cat_name,
                                 categorie_url=categorie['url'])
+                count += 1
                 cat.save()
-            self.stdout.write("Download done with {} categories".format(
-                Categorie.objects.count()))
+            self.stdout.write("Categories database update with {} new categorie(s)".format(
+               count))
         except Exception as e:
             self.stdout.write("An error is occured: {}".format(e))
