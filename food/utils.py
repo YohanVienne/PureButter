@@ -18,6 +18,8 @@ def get_product(search):
         for product_count in range(int(data["page_size"])):
             try:
                 categorie = data["products"][product_count]["categories"].split(',')
+                if categorie[0][2:3] == ":":
+                    categorie = [item[3:] for item in categorie if item[:2] == "fr"]
             except:
                 categorie_list = data["products"][product_count]["categories_tags"]
                 categorie = [item[3:] for item in categorie_list if item[:2] == "fr"]
@@ -52,9 +54,13 @@ def get_result(categorie, nutrition_grade):
                 if "image_front_url" in data["products"][rank]:
                     temp_list = []
                     temp_list.append(data["products"][rank]["image_front_url"])
-                    temp_list.append(data["products"][rank]
-                                     ["nutrition_grades_tags"][0])
+                    temp_list.append(data["products"][rank]["nutrition_grades_tags"][0])
                     temp_list.append(data["products"][rank]["product_name"])
+                    temp_list.append(data["products"][rank]["url"])
+                    nutriment = data["products"][rank]["nutriments"]
+                    ingredient = []
+                    ingredient = [item[:5] for item in nutriment if item[:5] == "_100g"]
+                    temp_list.append(ingredient)
                     product.append(temp_list)
                     item_count += 1
                     if item_count == 6:

@@ -9,4 +9,5 @@ urlpatterns = [
     path('connexion/', views.connexion, name='connexion'),
     path('deconnexion/', views.deconnexion, name='deconnexion'),
     path('subscribe/', views.subscribe, name='subscribe'),
+    #path('save/<int:number>', views.save, name='save'),
 ]
