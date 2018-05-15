@@ -12,6 +12,13 @@
         </div>
     </div>
 </header>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
 {% if noAnswer %}
 <section>
     <div class="container">
@@ -62,7 +69,7 @@
                         {% if not user.is_authenticated %}
                         <p title="Veuillez vous connecter pour sauvegarder"><i class="saveIco material-icons">save</i> Sauvegarder</p>
                         {% else %}
-                        <p><a class="saveProduct" href="#"><i class="saveIco material-icons">save</i> Sauvegarder</a></p>
+                        <p><a class="saveProduct" href="{% url 'save' search item.5 %}"><i class="saveIco material-icons">save</i> Sauvegarder</a></p>
                         {% endif %}
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .forms import ProductSearch, loginConnexion, createUser
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from food.utils import get_product, get_result
 from food.models import Product
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -32,7 +33,7 @@ def result(request, search):
             title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel inconnu'
         else:
             title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel ' + nutri_score
-        return render(request, 'results.html', {'title': title, 'product': request.session['product_result']})
+        return render(request, 'results.html', {'title': title, 'product': request.session['product_result'], 'search': search})
     else:
         return render(request, 'results.html', {'noAnswer': 'No answer'})
 
@@ -107,7 +108,14 @@ def subscribe(request):
 
 
 @login_required
-def save(request, number):
+def save(request, search, number):
     """ Save Product for user """
-    pass
-
+    try:
+        pro = request.session['product_result'][number]
+        user_id = request.user.id
+        Product.objects.create(product_name=pro[2], product_picture=pro[0], product_nutriscore=pro[1], product_url=pro[3], product_ingredient=pro[4], product_user_id=user_id)
+        messages.add_message(request, messages.SUCCESS, 'Produit sauvegardé')
+        return redirect (result, search)
+    except:
+        messages.add_message(request, messages.ERROR, 'Impossible de sauvegarder ce produit')
+        return redirect(result, search)
