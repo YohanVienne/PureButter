@@ -56,12 +56,12 @@
                     </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="{%url 'account'%}" title="Mon compte">
+                            <a class="nav-link js-scroll-trigger" href="{% url 'account'%}" title="Mon compte">
                                 <i class="material-icons">person</i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#services" title="Mes aliments" id="carrot"></a>
+                            <a class="nav-link js-scroll-trigger" href="{% url 'product' %}" title="Mes aliments" id="carrot"></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="{%url 'deconnexion'%}" title="Déconnexion">

@@ -40,10 +40,17 @@ a {
 }
 
 .subImg {
+height: 230px;
+max-width: 230px;
+border-radius: 5px;
+position: relative;
+}
+
+.proImg {
 max-height: 230px;
 max-width: 230px;
-border: 1px solid #28ee28;
-position: relative;
+border-radius: 5px;
+margin-bottom: 20px;
 }
 
 .nutImg {
@@ -51,6 +58,26 @@ position: relative;
     top:-35px;
     left:230px;
     border-radius: 45px 45px 45px 45px;
+}
+
+.proTitle {
+  margin-bottom: 30px;
+  margin-top: -30px;
+  border: 1px solid #fadcb9;
+  background-color: #fadcb9;
+  border-radius: 10px;
+  color: #e07013
+}
+
+.nutriCent {
+  color: #18ad0a !important;
+}
+
+.productSave {
+  background-color: #fadcb9;
+  height: 400px;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .saveProduct {
@@ -209,6 +236,38 @@ footer {
   margin: auto;
   width: 85%;
   border-radius: 10px 0px 0px 10px;
+}
+
+/* The alert message box */
+
+.alert {
+  padding: 20px;
+  background-color: #18ad0a;
+  color: rgb(255, 255, 255);
+  margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: rgb(255, 255, 255);
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+.proLink {
+  color: #98A2AD !important;
+}
+
+.marginTop {
+  margin-top: -45px !important;
 }
 
 @media (min-width: 992px) {
@@ -423,12 +482,14 @@ header.mastheadResult {
 
 .nutriPicture {
   margin-bottom: 5px;
-  
+  border-radius: 10px;
+  height: 50px;
+  transition: bottom 1s;
 }
 
 .landmark {
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .accountForm {

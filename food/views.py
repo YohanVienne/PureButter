@@ -1,4 +1,6 @@
 import json
+import ast
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from .forms import ProductSearch, loginConnexion, createUser
@@ -37,12 +39,22 @@ def result(request, search):
     else:
         return render(request, 'results.html', {'noAnswer': 'No answer'})
 
-def product(request, product):
+
+@login_required
+def product(request, number=0):
     """ Page product """
-    return render(request, 'product.html', {'product': product})
+    user_id = request.user.id
+    productList = Product.objects.filter(product_user_id=user_id)
+    if productList.count() >= 1:
+        product = productList[number]
+        nutriList = ast.literal_eval(product.product_ingredient)
+        return render(request, 'product.html', {'number': number, 'productList': productList, 'product': product, 'nutriList': nutriList})
+    else:
+        return render(request, 'product.html', {'noneList': 1})
 
 @login_required
 def account(request):
+    """ Create an account """
     curentUser = request.user
     firstname = curentUser.first_name
     lastname = curentUser.last_name
