@@ -34,11 +34,11 @@
             <div class="col-lg-4">
                 <nav class="productSave">
                     <h5>Liste des produits sauvegardées:</h5>
-                    <ul>
+                    <div class="list-group">
                         {% for item in productList %}
-                        <li><a class="proLink" href="{% url 'product' forloop.counter0 %}">{{ item.product_name }}</a></li>
+                        <a class="proLink list-group-item" href="{% url 'product' forloop.counter0 %}">{{ item.product_name }}</a>
                         {% endfor %}
-                    </ul>
+                    </div>
                 </nav>
             </div>
             <div class="col-lg-4 text-center">
@@ -55,15 +55,15 @@
             </div>
             <div class="col-lg-4 text-center">
                 <h4 class="landmark">Repères nutritionnels pour 100g:</h4>
-                <ul class="nutricent">
+                <ul class="nutricent list-group">
                     {% for key, value in nutriList.items %}
-                    <li>{{ key }}: {{value|floatformat}}  gr</li>
+                    <li class="list-group-item">{{ key }}: {{value|floatformat}} {% if key == "energy" %} kcal {% else %} gr {% endif %}</li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12 text-center marginTop">
+            <div class="col-lg-12 text-center extLink">
                 <a href="{{ product.product_url }}" class="btn btn-primary" role="button" >Voir la fiche d'Open Food Facts</a>
             </div>
         </div>

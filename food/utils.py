@@ -58,9 +58,11 @@ def get_result(categorie, nutrition_grade):
                     temp_list.append(data["products"][rank]["product_name"])
                     temp_list.append(data["products"][rank]["url"])
                     nutriment = data["products"][rank]["nutriments"]
-                    ingredient = []
-                    ingredient = {key[:len(key)-5]: value for (key, value)
+                    tmpIngredient = []
+                    tmpIngredient = {key[:len(key)-5]: value for (key, value)
                                   in nutriment.items() if key[len(key)-5:] == '_100g'}
+                    ingredient = {key: value for (key, value)
+                                  in tmpIngredient.items() if key[:len(key)-9] != 'nutrition'}
                     temp_list.append(ingredient)
                     temp_list.append(item_count)
                     product.append(temp_list)

@@ -26,6 +26,10 @@ hr.light {
   border-color: #fff;
 }
 
+.list-group-item{
+  padding: 2px;
+}
+
 a {
   color: white;
   font-weight: 7000;
@@ -489,13 +493,17 @@ header.mastheadResult {
 
 .landmark {
   margin-top: 20px;
-  margin-bottom: 60px;
+  margin-bottom: 10px;
 }
 
 .accountForm {
   border: 2px solid #ee4b28;
   max-width: 500px;
   margin: auto;
+}
+
+.extLink {
+  margin-top: -135px;
 }
 
 @media (min-width: 374px){
