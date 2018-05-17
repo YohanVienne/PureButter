@@ -73,6 +73,10 @@ margin-bottom: 20px;
   color: #e07013
 }
 
+.aLegal {
+  color: blue !important;
+}
+
 .nutriCent {
   color: #18ad0a !important;
 }

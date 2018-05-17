@@ -131,3 +131,7 @@ def save(request, search, number):
     except:
         messages.add_message(request, messages.ERROR, 'Impossible de sauvegarder ce produit')
         return redirect(result, search)
+
+def legal(request):
+    """ Legal mention """
+    return render(request, 'legalise.html')

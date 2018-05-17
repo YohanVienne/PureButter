@@ -11,4 +11,5 @@ urlpatterns = [
     path('deconnexion/', views.deconnexion, name='deconnexion'),
     path('subscribe/', views.subscribe, name='subscribe'),
     path('save/<str:search>/<int:number>', views.save, name='save'),
+    path('legal', views.legal, name='legal'),
 ]
