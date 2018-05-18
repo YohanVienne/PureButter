@@ -8,11 +8,11 @@ def get_product(search):
     """ Get some substitute """
     # Download the the product list from the search word
     search = search.capitalize()
-    payload = {'json': '1', 'page_size': '20', 'search_simple': '1'}
-    result_url = requests.get(
-        'https://fr.openfoodfacts.org/cgi/search.pl?search_terms=' + search, params=payload)
-    data = result_url.json()
-    if data["count"] >= 1:
+    try:
+        payload = {'json': '1', 'page_size': '20', 'search_simple': '1'}
+        result_url = requests.get(
+            'https://fr.openfoodfacts.org/cgi/search.pl?search_terms=' + search, params=payload)
+        data = result_url.json()
         # Extract the categorie list and nutrition grade from the product list
         categorie = []
         for product_count in range(int(data["page_size"])):
@@ -28,7 +28,7 @@ def get_product(search):
                 nutrition_grade = data["products"][product_count]["nutrition_grades_tags"]
                 result = categorie, nutrition_grade
                 return result
-    else:
+    except:
         # No result
         return None
 
