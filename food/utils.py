@@ -35,6 +35,7 @@ def get_product(search):
 
 def get_result(categorie, nutrition_grade):
     cat = categorie[(len(categorie)-1)]
+    print("cat: " + str(cat))
     try:
         categorie_match = Categorie.objects.get(categorie_name=cat)
     except:
