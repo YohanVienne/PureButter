@@ -26,7 +26,7 @@ SECRET_KEY = 'uh#@3$++0l$*hae7s3xjuq#nl5^k7na$5zo(sxw==oue3yc1bj'
 
 if os.environ.get('ENV') == 'PRODUCTION':
     DEBUG = False
-    ALLOWED_HOSTS = ['purebeurre.herokuapp.com']
+    ALLOWED_HOSTS = ['pure-beurre.herokuapp.com']
 else:
     DEBUG = True
     ALLOWED_HOSTS = ['*']
