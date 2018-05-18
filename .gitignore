@@ -3,3 +3,6 @@ env/
 Doc/
 db.sqlite3
 geckodriver.log
+pure_beurre/__pycache__
+food/__pycache__/
+food/migrations/__pycache__/
