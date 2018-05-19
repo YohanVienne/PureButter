@@ -141,7 +141,7 @@ MEDIA_URL = '/media/'
 if os.environ.get('ENV') == 'PRODUCTION':
     # Static files settings
 
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
     db_from_env = dj_database_url.config(conn_max_age=500)
