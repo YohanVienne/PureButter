@@ -136,7 +136,6 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = '/connexion/'
 
-MEDIA_URL = '/media/'
 
 if os.environ.get('ENV') == 'PRODUCTION':
     # Static files settings
