@@ -25,7 +25,8 @@ class UrlTestCase(TestCase):
         """ Url test with visitor client """
         home = self.client.get('')
         result = self.client.get('/result/test')
-        product = self.client.get('/product/test')
+        resultFalse = self.client.get('/result/')
+        product = self.client.get('/product/1')
         account = self.client.get('/account/')
         connexion = self.client.get('/connexion/')
         deconnexion = self.client.get('/deconnexion/')
@@ -33,7 +34,8 @@ class UrlTestCase(TestCase):
 
         self.assertEqual(home.status_code, 200)
         self.assertEqual(result.status_code, 200)
-        self.assertEqual(product.status_code, 200)
+        self.assertEqual(resultFalse.status_code, 404)
+        self.assertEqual(product.status_code, 302)
         self.assertEqual(account.status_code, 302)
         self.assertEqual(connexion.status_code, 200)
         self.assertEqual(deconnexion.status_code, 302)
@@ -72,6 +74,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
 class OffTestCase(TestCase):
     """ Test the OpenFoodFacts request """
+    fixtures = ['categorie.json']
 
     def setUp(self):
         Categorie.objects.create(
@@ -82,20 +85,20 @@ class OffTestCase(TestCase):
         request = get_product('Nutella')
         result = (['Petit-déjeuners', 'Produits à tartiner', 'Produits à tartiner sucrés',
                     'Pâtes à tartiner', 'Pâtes à tartiner au chocolat',
-                    'Pâtes à tartiner aux noisettes', 'Pâtes à tartiner aux noisettes et au cacao'], 'e')
+                    'Pâtes à tartiner aux noisettes', 'Pâtes à tartiner aux noisettes et au cacao'], ['e'])
         self.assertEqual(request, result )
 
     def test_get_product_is_none(self):
         """ Return None """
-        request = get_product('gezzfzzfz')
+        request = get_product('ThisProductDoesntExist')
         self.assertEqual(request, None)
 
     def test_get_result(self):
         """ Get_result test """
         categorie = ['Petit-déjeuners', 'Produits à tartiner', 'Produits à tartiner sucrés',
                      'Pâtes à tartiner', 'Pâtes à tartiner au chocolat',
-                     'Pâtes à tartiner aux noisettes', 'Pâtes à tartiner aux noisettes et au cacao']
-        nutrition_grade =  'e'
+                     'Pâtes à tartiner aux noisettes']
+        nutrition_grade =  ['e']
 
         result = get_result(categorie, nutrition_grade)
         json_result = json.loads(result)

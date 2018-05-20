@@ -28,14 +28,17 @@ def result(request, search):
     if search_result is not None:
         categorie, nutrition_grade = search_result
         data = get_result(categorie, nutrition_grade)
-        request.session['product_result'] = json.loads(data)
-        nutri_score = str(nutrition_grade[0].upper())
-        if nutri_score.lower() == 'unknown':
-            nutri_score = 'inconnu'
-            title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel inconnu'
+        if data is not None:
+            request.session['product_result'] = json.loads(data)
+            nutri_score = str(nutrition_grade[0].upper())
+            if nutri_score.lower() == 'unknown' or nutri_score == 'NOT-APPLICABLE':
+                nutri_score = 'inconnu'
+                title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel inconnu'
+            else:
+                title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel ' + nutri_score
+            return render(request, 'results.html', {'title': title, 'product': request.session['product_result'], 'search': search})
         else:
-            title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel ' + nutri_score
-        return render(request, 'results.html', {'title': title, 'product': request.session['product_result'], 'search': search})
+            return render(request, 'results.html', {'noAnswer': 'No answer'})
     else:
         return render(request, 'results.html', {'noAnswer': 'No answer'})
 

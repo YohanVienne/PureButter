@@ -5,7 +5,7 @@ from food.models import Categorie
 
 
 def get_product(search):
-    """ Get some substitute """
+    """ Get the categorie from search product """
     # Download the the product list from the search word
     search = search.capitalize()
     try:
@@ -34,14 +34,19 @@ def get_product(search):
 
 
 def get_result(categorie, nutrition_grade):
+    """ Get a list of 6 products max from the categorie"""
     cat = categorie[(len(categorie)-1)]
     print("cat: " + str(cat))
-    try:
+    if Categorie.objects.filter(categorie_name=cat).exists():
         categorie_match = Categorie.objects.get(categorie_name=cat)
-    except:
+    else:
         cat_url = cat.replace(' ', '-')
-        categorie_match = Categorie.objects.get(categorie_name=cat_url)[:1]
+        if Categorie.objects.filter(categorie_name=cat_url).exists():
+            categorie_match = Categorie.objects.get(categorie_name=cat_url)[:1]
+        else:
+            return None
     print('cat_match: ' + str(categorie_match))
+    # Request the OpenFoodFacts for a list of product
     data_url = requests.get(categorie_match.categorie_url + '.json')
     data = data_url.json()
     json_lenght = data["count"]
@@ -49,6 +54,7 @@ def get_result(categorie, nutrition_grade):
         json_lenght = 20
     product = []
     item_count = 0
+    # Build the product list from the json return
     for rank in range(0, json_lenght):
         if "nutrition_grades_tags" in data["products"][rank]:
             if data["products"][rank]["nutrition_grades_tags"] <= nutrition_grade:
