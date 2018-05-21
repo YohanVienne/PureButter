@@ -360,14 +360,20 @@ header.masthead p {
 header.mastheadResult {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
-  background-image: url("../img/header.jpg");
-  background-position: center center;
+  background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: 90%;
 }
 
+header.resultFoundBackground {
+  background-image: url("../img/product.jpg");
+}
+
+header.noResultFoundBackground {
+  background-image: url("../img/remy-5.jpg");
+}
 
 @media (min-width: 768px) {
   header.masthead p {

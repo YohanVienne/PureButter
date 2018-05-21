@@ -26,7 +26,12 @@ def get_product(search):
             if len(categorie) >= 1:
                 print("categorie: " + str(categorie))
                 nutrition_grade = data["products"][product_count]["nutrition_grades_tags"]
-                result = categorie, nutrition_grade
+                picture_url = data["products"][product_count]["image_front_url"]
+                print(picture_url)
+                result = []
+                result.append(categorie)
+                result.append(nutrition_grade)
+                result.append(picture_url)
                 return result
     except:
         # No result
@@ -40,9 +45,9 @@ def get_result(categorie, nutrition_grade):
     if Categorie.objects.filter(categorie_name=cat).exists():
         categorie_match = Categorie.objects.get(categorie_name=cat)
     else:
-        cat_url = cat.replace(' ', '-')
-        if Categorie.objects.filter(categorie_name=cat_url).exists():
-            categorie_match = Categorie.objects.get(categorie_name=cat_url)[:1]
+        catModified = cat.replace(' ', '-')
+        if Categorie.objects.filter(categorie_name=catModified).exists():
+            categorie_match = Categorie.objects.get(categorie_name=catModified)[:1]
         else:
             return None
     print('cat_match: ' + str(categorie_match))

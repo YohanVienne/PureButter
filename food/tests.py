@@ -83,9 +83,9 @@ class OffTestCase(TestCase):
     def test_get_product(self):
         """ Get_product test """
         request = get_product('Nutella')
-        result = (['Petit-déjeuners', 'Produits à tartiner', 'Produits à tartiner sucrés',
+        result = [['Petit-déjeuners', 'Produits à tartiner', 'Produits à tartiner sucrés',
                     'Pâtes à tartiner', 'Pâtes à tartiner au chocolat',
-                    'Pâtes à tartiner aux noisettes', 'Pâtes à tartiner aux noisettes et au cacao'], ['e'])
+                    'Pâtes à tartiner aux noisettes', 'Pâtes à tartiner aux noisettes et au cacao'], ['e'], 'https://fr.openfoodfacts.org/produit/3017620429484/nutella-ferrero']
         self.assertEqual(request, result )
 
     def test_get_product_is_none(self):

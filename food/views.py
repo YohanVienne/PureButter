@@ -1,5 +1,6 @@
 import json
 import ast
+import requests
 from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
@@ -26,7 +27,9 @@ def result(request, search):
     """ Results page """
     search_result = get_product(search)
     if search_result is not None:
-        categorie, nutrition_grade = search_result
+        categorie = search_result[0]
+        nutrition_grade = search_result[1]
+        picture_url = search_result[2]
         data = get_result(categorie, nutrition_grade)
         if data is not None:
             request.session['product_result'] = json.loads(data)
@@ -36,6 +39,10 @@ def result(request, search):
                 title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel inconnu'
             else:
                 title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel ' + nutri_score
+            # Download the background picture for result page
+            background_picture = requests.get(picture_url)
+            with open('food/static/food/img/product.jpg', 'wb') as f:
+                f.write(background_picture.content)
             return render(request, 'results.html', {'title': title, 'product': request.session['product_result'], 'search': search})
         else:
             return render(request, 'results.html', {'noAnswer': 'No answer'})
