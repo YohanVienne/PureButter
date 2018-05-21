@@ -40,14 +40,17 @@ def result(request, search):
             else:
                 title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel ' + nutri_score
             # Download the background picture for result page
-            background_picture = requests.get(picture_url)
-            with open('food/static/food/img/product.jpg', 'wb') as f:
-                f.write(background_picture.content)
+            try:
+                background_picture = requests.get(picture_url)
+                with open('food/static/food/img/product.jpg', 'wb') as f:
+                    f.write(background_picture.content)
+            except:
+                return render(request, 'results.html', {'title': title, 'product': request.session['product_result'], 'search': search, 'noPicture': 'noPicture'})
             return render(request, 'results.html', {'title': title, 'product': request.session['product_result'], 'search': search})
         else:
-            return render(request, 'results.html', {'noAnswer': 'No answer'})
+            return render(request, 'results.html', {'noAnswer': 'No answer', 'noPicture': 'noPicture'})
     else:
-        return render(request, 'results.html', {'noAnswer': 'No answer'})
+        return render(request, 'results.html', {'noAnswer': 'No answer', 'noPicture': 'noPicture'})
 
 
 @login_required
