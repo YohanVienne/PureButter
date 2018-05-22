@@ -367,10 +367,6 @@ header.mastheadResult {
   background-size: 90%;
 }
 
-header.resultFoundBackground {
-  background-image: url("../img/product.jpg");
-}
-
 header.noResultFoundBackground {
   background-image: url("../img/remy-5.jpg");
 }
