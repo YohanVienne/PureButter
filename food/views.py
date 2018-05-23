@@ -40,7 +40,9 @@ def result(request, search):
             else:
                 title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel ' + nutri_score
             # Download the background picture for result page
-            return render(request, 'results.html', {'title': title, 'product': request.session['product_result'], 'search': search, "pictureUrl": picture_url})
+            return render(request, 'results.html', {'title': title,
+                                                    'product': request.session['product_result'],
+                                                    'search': search, "pictureUrl": picture_url})
         else:
             return render(request, 'results.html', {'noAnswer': 'No answer', 'noPicture': 'noPicture'})
     else:
@@ -55,7 +57,8 @@ def product(request, number=0):
     if productList.count() >= 1:
         product = productList[number]
         nutriList = ast.literal_eval(product.product_ingredient)
-        return render(request, 'product.html', {'number': number, 'productList': productList, 'product': product, 'nutriList': nutriList})
+        return render(request, 'product.html', {'number': number, 'productList': productList,
+                                                'product': product, 'nutriList': nutriList})
     else:
         return render(request, 'product.html', {'noneList': 1})
 
@@ -132,7 +135,9 @@ def save(request, search, number):
     try:
         pro = request.session['product_result'][number]
         user_id = request.user.id
-        Product.objects.create(product_name=pro[2], product_picture=pro[0], product_nutriscore=pro[1], product_url=pro[3], product_ingredient=pro[4], product_user_id=user_id)
+        Product.objects.create(product_name=pro[2], product_picture=pro[0],
+                            product_nutriscore=pro[1], product_url=pro[3],
+                            product_ingredient=pro[4], product_user_id=user_id)
         messages.add_message(request, messages.SUCCESS, 'Produit sauvegardé')
         return redirect (result, search)
     except:

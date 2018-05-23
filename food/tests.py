@@ -101,6 +101,5 @@ class OffTestCase(TestCase):
         nutrition_grade =  ['e']
 
         result = get_result(categorie, nutrition_grade)
-        json_result = json.loads(result)
         self.assertIs(type(result), str)
 

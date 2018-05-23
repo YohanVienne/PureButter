@@ -32,7 +32,12 @@
 <body id="page-top">
 
     <!-- Navigation -->
+    
+    {% if pictureUrl %}
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: rgba(240, 96, 64, 0.712)"> 
+    {% else %}    
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    {% endif %}    
         <div class="container">
             <img class="logo" src="{% static 'food/img/logo_pur_beurre.png' %}" alt="Logo">
             <a class="navbar-brand js-scroll-trigger" href="{% url 'home' %}">Pur Beurre</a>
