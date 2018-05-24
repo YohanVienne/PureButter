@@ -1,3 +1,4 @@
+""" Views of foood app """
 import json
 import ast
 import requests
@@ -14,6 +15,8 @@ from food.models import Product
 from django.contrib import messages
 
 # Create your views here.
+
+
 def home(request):
     """ Main page """
     form = ProductSearch(request.POST)
@@ -36,17 +39,21 @@ def result(request, search):
             nutri_score = str(nutrition_grade[0].upper())
             if nutri_score.lower() == 'unknown' or nutri_score == 'NOT-APPLICABLE':
                 nutri_score = 'inconnu'
-                title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel inconnu'
+                title = 'Votre recherche pour ' + search + \
+                    ' avec un indice nutritionnel inconnu'
             else:
-                title = 'Votre recherche pour ' + search + ' avec un indice nutritionnel ' + nutri_score
+                title = 'Votre recherche pour ' + search + \
+                    ' avec un indice nutritionnel ' + nutri_score
             # Download the background picture for result page
             return render(request, 'results.html', {'title': title,
                                                     'product': request.session['product_result'],
                                                     'search': search, "pictureUrl": picture_url})
         else:
-            return render(request, 'results.html', {'noAnswer': 'No answer', 'noPicture': 'noPicture'})
+            return render(request, 'results.html', {'noAnswer': 'No answer',
+                                                    'noPicture': 'noPicture'})
     else:
-        return render(request, 'results.html', {'noAnswer': 'No answer', 'noPicture': 'noPicture'})
+        return render(request, 'results.html', {'noAnswer': 'No answer',
+                                                'noPicture': 'noPicture'})
 
 
 @login_required
@@ -55,12 +62,13 @@ def product(request, number=0):
     user_id = request.user.id
     productList = Product.objects.filter(product_user_id=user_id)
     if productList.count() >= 1:
-        product = productList[number]
-        nutriList = ast.literal_eval(product.product_ingredient)
+        productSave = productList[number]
+        nutriList = ast.literal_eval(productSave.product_ingredient)
         return render(request, 'product.html', {'number': number, 'productList': productList,
-                                                'product': product, 'nutriList': nutriList})
+                                                'product': productSave, 'nutriList': nutriList})
     else:
         return render(request, 'product.html', {'noneList': 1})
+
 
 @login_required
 def account(request):
@@ -71,6 +79,7 @@ def account(request):
     email = curentUser.email
 
     return render(request, 'account.html', locals())
+
 
 def connexion(request):
     """ Connexion user """
@@ -86,15 +95,17 @@ def connexion(request):
                 login(request, user)
                 return redirect(reverse(home))
             else:
-                error = True  
+                error = True
     else:
         form = loginConnexion()
     return render(request, 'login.html', locals())
+
 
 def deconnexion(request):
     """ Logout user """
     logout(request)
     return redirect(reverse(connexion))
+
 
 def subscribe(request):
     """ Create User account """
@@ -136,13 +147,15 @@ def save(request, search, number):
         pro = request.session['product_result'][number]
         user_id = request.user.id
         Product.objects.create(product_name=pro[2], product_picture=pro[0],
-                            product_nutriscore=pro[1], product_url=pro[3],
-                            product_ingredient=pro[4], product_user_id=user_id)
+                               product_nutriscore=pro[1], product_url=pro[3],
+                               product_ingredient=pro[4], product_user_id=user_id)
         messages.add_message(request, messages.SUCCESS, 'Produit sauvegardé')
-        return redirect (result, search)
-    except:
-        messages.add_message(request, messages.ERROR, 'Impossible de sauvegarder ce produit')
         return redirect(result, search)
+    except:
+        messages.add_message(request, messages.ERROR,
+                             'Impossible de sauvegarder ce produit')
+        return redirect(result, search)
+
 
 def legal(request):
     """ Legal mention """
