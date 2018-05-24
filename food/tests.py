@@ -4,6 +4,7 @@ from food.models import Categorie
 from django.test import Client
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium.webdriver.common.keys import Keys
 from food.utils import get_product, get_result
 
 class CategorieTestCase(TestCase):
@@ -44,7 +45,7 @@ class UrlTestCase(TestCase):
 
 class MySeleniumTests(StaticLiveServerTestCase):
     """ Try connexion and logout of a user """
-    fixtures = ['user.json']
+    fixtures = ['user.json', 'categorie.json', 'product.json']
     from selenium.webdriver.support.wait import WebDriverWait
     timeout = 2
 
@@ -60,6 +61,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         super().tearDownClass()
 
     def test_login(self):
+        """ Login & disconnect user """
         from selenium.webdriver.support.wait import WebDriverWait
         timeout = 2
         self.selenium.get('%s%s' % (self.live_server_url, '/connexion/'))
@@ -70,6 +72,29 @@ class MySeleniumTests(StaticLiveServerTestCase):
         self.selenium.find_element_by_xpath('//input[@value="Se connecter"]').click()
         WebDriverWait(self.selenium, timeout).until(
             lambda driver: driver.find_element_by_id('carrot'))
+        self.selenium.find_element_by_xpath('//a[@title="Déconnexion"]').click()
+
+    def test_save(self):
+        """ Login, get a product and save it"""
+        from selenium.webdriver.support.wait import WebDriverWait
+        timeout = 2
+        self.selenium.get('%s%s' % (self.live_server_url, '/connexion/'))
+        username_input = self.selenium.find_element_by_name("username")
+        username_input.send_keys('Paul')
+        password_input = self.selenium.find_element_by_name("password")
+        password_input.send_keys('azerty')
+        self.selenium.find_element_by_xpath('//input[@value="Se connecter"]').click()
+        WebDriverWait(self.selenium, timeout).until(
+            lambda driver: driver.find_element_by_id('carrot'))
+        search_bar_input = self.selenium.find_element_by_id('searchBar')
+        search_bar_input.send_keys('nutella')
+        search_bar_input.send_keys(Keys.ENTER)
+        WebDriverWait(self.selenium, timeout).until(
+            lambda driver: driver.find_element_by_class_name('saveProduct'))
+        self.selenium.find_element_by_class_name('saveProduct').click()
+        self.selenium.get('%s%s' % (self.live_server_url, '/product/'))
+        WebDriverWait(self.selenium, timeout).until(
+            lambda driver: driver.find_element_by_class_name('proLink'))
         self.selenium.find_element_by_xpath('//a[@title="Déconnexion"]').click()
 
 class OffTestCase(TestCase):
